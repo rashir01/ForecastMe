@@ -36,34 +36,64 @@ todo:
     6.4 add 1 day forcas
 */
 
-
+const currentDayDisplayDiv = $("")
 var currentCity = "Seattle";
 
 
 function handleSearchSubmitButton() {
     let city = $("#city-name-text-area").val().trim();
-    showCityWeatherData(city);
+    getFullWeatherDataFromAPI(city);
     addCityToSearchHistory(city);
 }
 
 function buildQueryURL(city) {
-    const API_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
+    const API_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
+    const API_FIVE_DAY_URL = "https://api.openweathermap.org/data/2.5/forecast?q=";
+    const API_ONE_CALL =  "https://api.openweathermap.org/data/2.5/onecall?lon=-122.335167&lat=47.608013&exclude=hourly,minutely"
     const API_KEY = "7f2a300c44e460bbccdcac14620347c7";
     const APPID_QUERY_PARAM = "&appid=";
-    return API_URL + city + APPID_QUERY_PARAM + API_KEY;
+    const TEMP_QUERY_PARAM = "&units=imperial";
+    return API_ONE_CALL +  APPID_QUERY_PARAM + API_KEY + TEMP_QUERY_PARAM ;
 }
 
 function addCityToSearchHistory(city) {}
-function showCityWeatherData(city) {}
+function getFullWeatherDataFromAPI(city) {
+    fetch(buildQueryURL(city))
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log('Fetch Response \n-------------');
+      //console.log(data);
+      console.log(data);
+      if (!data) {
+        
+        //return error
+        console.log("haha i caught it");
+      } else {
+          //return the data
+          processData(data);
+      }
+    });
+}
 
+//todo implement the uvindex function
+function setUVIndexBackground(uvindex) {}
 
-
-
-fetch(queryURL)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    console.log('Fetch Response \n-------------');
+function processData(data){
+    populateCurrentDayData(data);
+}
+function populateCurrentDayData(data){
     console.log(data);
-  });
+    $("#cityName").text(data.name);
+    $("#temp").text(Math.ceil(data.current.temp));
+    $("#wind").text(data.current.wind_speed);
+    $("#humidity").text(data.current.humidity);
+    $("#uvindex").text(data.current.uvi);
+    setUVIndexBackground(data.current.uvi);
+}
+
+
+
+
+
