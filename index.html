@@ -3,13 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Rays Weather App</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
-  <body class="min-100-vh flex-column">
-    <header class="p-5 text-center text-white bg-primary">
+  <body>
+    <header class="p-5 text-center text-white bg-header">
       <h1>Weather Dashboard</h1>
     </header>
+    <div class="container">
+        <div class="row">
+            <div class="search-area col-4" style="border: solid red;">
+                <input type="text" class="form-control ui-autocomplete-input my-1" id="skill-name" autocomplete="off">
+                <button type="submit" value="Submit" class="btn btn-info col my-1">
+                    Search Cities
+                  </button>
+                <div class="search-history">cities go here</div>
+            </div>
+            <div class="row display-area col" style="border: solid blue;">
+                <div class="one-day-display col-12" style="border: solid green;"></div>
+                <div class="five-day-display col-12" style="border: solid yellow;"></div>
+            </div>
+        </div>
+    </div>
 
   </body>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <!-- jQuery UI <script> tag -->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="./assets/js/script.js"></script>
 </html>
