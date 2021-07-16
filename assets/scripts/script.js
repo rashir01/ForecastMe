@@ -13,7 +13,7 @@ todo:
 2. Search for a city 
     2.1 optional show suggested cities
     2.2 capture city input --DONE
-    
+
 3. get weather for city being searched
 4. add weather to display 
     4.1 add display date and current state of the weather icon (sunny, cloudy, etc)
@@ -35,16 +35,26 @@ todo:
     6.3 add 5 day forcast
     6.4 add 1 day forcas
 */
-const API_KEY = "7f2a300c44e460bbccdcac14620347c7";
-var city = "Seattle";
 
-var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + "Seattle" + "&appid=" + API_KEY;
+
+var currentCity = "Seattle";
 
 
 function handleSearchSubmitButton() {
-    city = $("#city-name-text-area").val().trim();
+    let city = $("#city-name-text-area").val().trim();
+    showCityWeatherData(city);
+    addCityToSearchHistory(city);
 }
 
+function buildQueryURL(city) {
+    const API_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
+    const API_KEY = "7f2a300c44e460bbccdcac14620347c7";
+    const APPID_QUERY_PARAM = "&appid=";
+    return API_URL + city + APPID_QUERY_PARAM + API_KEY;
+}
+
+function addCityToSearchHistory(city) {}
+function showCityWeatherData(city) {}
 
 
 
