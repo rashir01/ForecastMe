@@ -89,10 +89,13 @@ function processData(data){
 function populateCurrentDayData(data){
     console.log(data);
     $("#cityName").text("Seattle " + new Date(data.current.dt * 1000).toLocaleDateString("en-US"));
-    $("#temp").text(Math.ceil(data.current.temp));
-    $("#wind").text(data.current.wind_speed);
-    $("#humidity").text(data.current.humidity);
+    $("#temp").text(Math.ceil(data.current.temp) + " F");
+    $("#wind").text(data.current.wind_speed + " MPH");
+    $("#humidity").text(data.current.humidity + " %");
     $("#uvindex").text(data.current.uvi);
+    let temp = "04d"
+    $("#daily-icon").attr("src", `https://openweathermap.org/img/wn/${data.current.weather[0].icon}.png`)
+    //
     setUVIndexBackground(data.current.uvi);
 }
 
