@@ -34,6 +34,7 @@ todo:
     6.2 add search area
     6.3 add 5 day forcast
     6.4 add 1 day forcas
+        6.4.1 remove ul bullets
 */
 
 const currentDayDisplayDiv = $("")
@@ -55,7 +56,9 @@ function buildQueryURL(city) {
     const TEMP_QUERY_PARAM = "&units=imperial";
     return API_ONE_CALL +  APPID_QUERY_PARAM + API_KEY + TEMP_QUERY_PARAM ;
 }
+function getCityLongLat(city) {
 
+}
 function addCityToSearchHistory(city) {}
 function getFullWeatherDataFromAPI(city) {
     fetch(buildQueryURL(city))
@@ -85,7 +88,7 @@ function processData(data){
 }
 function populateCurrentDayData(data){
     console.log(data);
-    $("#cityName").text(data.name);
+    $("#cityName").text("Seattle " + new Date(data.current.dt * 1000).toLocaleDateString("en-US"));
     $("#temp").text(Math.ceil(data.current.temp));
     $("#wind").text(data.current.wind_speed);
     $("#humidity").text(data.current.humidity);
