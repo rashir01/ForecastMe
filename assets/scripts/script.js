@@ -1,11 +1,11 @@
 var currentCity = "";
 const API_KEY = "7f2a300c44e460bbccdcac14620347c7";
+//TODO read history from local storage
 var searchHistorySet = new Set();
 
 function handleSearchSubmitButton() {
     let city = $("#city-name-text-area").val().trim();
-    processRequest(city);
-    
+    processRequest(city);    
 }
 
 function processRequest(city) {
@@ -17,13 +17,24 @@ function processRequest(city) {
             currentCity = city;
             updateSearchHistory(city);
             return response.json();
-        } else {
-            //alert("Invalid City");
         }
     }).then (getFullWeatherData)
     .catch(function(error) {
         alert("Invalid City");
       });
+}
+
+function getFullWeatherData(data) {
+    const FULL_WEATHER_URL = `https://api.openweathermap.org/data/2.5/onecall?lon=${data.coord.lon}&lat=${data.coord.lat}&exclude=hourly,minutely,alerts&appid=${API_KEY}&units=imperial`;
+
+    fetch(FULL_WEATHER_URL).then(function(response) {
+        return response.json();
+    }).then(processFullWeatherData);    
+}
+
+function processFullWeatherData(data) {
+    printOneDayWeatherData(data);
+    printFiveDay(data);   
 }
 
 function printOneDayWeatherData(fullWeatherData) {
@@ -34,6 +45,7 @@ function printOneDayWeatherData(fullWeatherData) {
     $("#wind").text("Wind " + fullWeatherData.current.wind_speed + " MPH");
     $("#humidity").text("Humidity: " + fullWeatherData.current.humidity + " %");
     let uvIndexValue = fullWeatherData.current.uvi;
+    //TODO move to diff function
     let uvIndexBackground = "";
     if (uvIndexValue < 3) {
         uvIndexBackground = "green";
@@ -48,7 +60,6 @@ function printOneDayWeatherData(fullWeatherData) {
     $("#daily-icon").attr("src", `https://openweathermap.org/img/wn/${fullWeatherData.current.weather[0].icon}.png`);
     $(".display-area").removeAttr('hidden');
 }
-
 
 function printFiveDay(fullWeatherData) {
     //five-day-card-section
@@ -91,22 +102,7 @@ function printFiveDay(fullWeatherData) {
         cardDiv.append(cardBody);
         //attach card to section
         $('.five-day-card-section').append(cardDiv);
-    }
- 
-}
-
-function getFullWeatherData(data) {
-    const FULL_WEATHER_URL = `https://api.openweathermap.org/data/2.5/onecall?lon=${data.coord.lon}&lat=${data.coord.lat}&exclude=hourly,minutely,alerts&appid=${API_KEY}&units=imperial`;
-
-    fetch(FULL_WEATHER_URL).then(function(response) {
-        return response.json();
-    }).then(processFullWeatherData);
-    
-}
-
-function processFullWeatherData(data) {
-    printOneDayWeatherData(data);
-    printFiveDay(data);   
+    } 
 }
 
 function updateSearchHistory(city) {
@@ -119,6 +115,7 @@ function updateSearchHistory(city) {
         listItem.append(cityButton);
         $('#search-history-ul').append(listItem);
     }
+    //TODO: write history to local storage
 }
 
 function historyButtonOnclick(event) {
