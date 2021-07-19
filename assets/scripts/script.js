@@ -53,8 +53,15 @@ function processRequest(city) {
     const COORD_API_URL = "https://api.openweathermap.org/data/2.5/weather?q=" +city +  "&appid=" + API_KEY;
     //get coordinates 
     fetch(COORD_API_URL).then(function(response) {
-        return response.json();
+        if (response.ok) {
+            return response.json();
+        } else {
+            alert("Invalid City");
+        }
     }).then (getFullWeatherData)
+    .catch(function(error) {
+        console.log('There has been a problem with your fetch operation: ' + error.message);
+      });
 }
 
 function printWeatherData(fullWeatherData) {
@@ -78,7 +85,7 @@ function printFiveDay(fullWeatherData) {
     for (let i = 1; i < 6; i++) {
         //create card class
         let cardDiv = $("<div></div>");
-        cardDiv.addClass("card");
+        cardDiv.addClass("card col-xl col-lg-5  m-1");
             let headerDiv = $("<div></div>");
             //create date header
             let cardTitle = $("<h4></h4>");
