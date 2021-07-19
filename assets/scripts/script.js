@@ -43,36 +43,48 @@ const API_KEY = "7f2a300c44e460bbccdcac14620347c7";
 function handleSearchSubmitButton() {
     let city = $("#city-name-text-area").val().trim();
     processRequest(city);
+    currentCity = city;
 }
 
 function processRequest(city) {
-    city = "Seattle";
     console.log("welcome to process request " + city )
     const COORD_API_URL = "https://api.openweathermap.org/data/2.5/weather?q=" +city +  "&appid=" + API_KEY;
+    //get coordinates 
     fetch(COORD_API_URL).then(function(response) {
         return response.json();
     }).then (getFullWeatherData)
-    .then (printWeatherData);
-    /*
-        1. get coordinates
-        2. get full week data
-        3. print 1 day 
-        4. print uv 
-        5. print 5 day
-        6. add to history
-    */
 }
 
 function printWeatherData(fullWeatherData) {
     console.log(fullWeatherData);
+    console.log("inside print weather data");
+    $("#cityName").text(currentCity + " " + new Date(fullWeatherData.current.dt * 1000).toLocaleDateString("en-US"));
+    $("#temp").text(Math.ceil(fullWeatherData.current.temp) + " F");
+    $("#wind").text(fullWeatherData.current.wind_speed + " MPH");
+    $("#humidity").text(fullWeatherData.current.humidity + " %");
+    $("#uvindex").text(fullWeatherData.current.uvi);
+    //let temp = "04d"
+    $("#daily-icon").attr("src", `https://openweathermap.org/img/wn/${fullWeatherData.current.weather[0].icon}.png`)
+    return fullWeatherData;
 }
+
+
+function printFiveDay(fullWeatherData) {
+    console.log("inside print 5 day");
+    $("#5ddate").text(new Date(fullWeatherData.daily[0].dt * 1000).toLocaleDateString("en-US"));
+    $("#5dtemp").text(Math.ceil(fullWeatherData.daily[0].temp.day) + " F");
+    $("#5dwind").text(fullWeatherData.daily[0].wind_speed + " MPH");
+    $("#5dhumidity").text(fullWeatherData.daily[0].humidity + " %");
+    return fullWeatherData;
+}
+
 function getFullWeatherData(data) {
     const FULL_WEATHER_URL = `https://api.openweathermap.org/data/2.5/onecall?lon=${data.coord.lon}&lat=${data.coord.lat}&exclude=hourly,minutely,alerts&appid=${API_KEY}&units=imperial`;
-    console.log(`inside of fullWeather data and api is ${FULL_WEATHER_URL}`)
-    console.log(data);
+
     fetch(FULL_WEATHER_URL).then(function(response) {
         return response.json();
-    }).then(printWeatherData)
+    }).then(printWeatherData)//replace these three with process weather data that calls each function individually
+    .then(printFiveDay)
 }
 /*function handleAPICalls(city) {
     const COORD_API_URL = "https://api.openweathermap.org/data/2.5/weather?q=" +city +  "&appid=" + API_KEY;
