@@ -56,6 +56,7 @@ function processRequest(city) {
     fetch(COORD_API_URL).then(function(response) {
         if (response.ok) {
             currentCity = city;
+            updateSearchHistory(city);
             return response.json();
         } else {
             //alert("Invalid City");
@@ -151,16 +152,16 @@ function getFullWeatherData(data) {
 }
 
 function processFullWeatherData(data) {
-    console.log(`current city ${currentCity}`);
-    searchHistorySet.add(currentCity.toLowerCase());
+    
     //console.log(Array.from(searchHistory));
     //$(".search-history").text(searchHistory);
     printOneDayWeatherData(data);
     printFiveDay(data);
-    updateSearchHistory();
+    
 }
 
-function updateSearchHistory() {
+function updateSearchHistory(city) {
+    searchHistorySet.add(city.toLowerCase());
     $('#search-history-ul').empty();
     let searchHistoryArray = Array.from(searchHistorySet);
     for (let i = 0; i < searchHistoryArray.length; i++) {
