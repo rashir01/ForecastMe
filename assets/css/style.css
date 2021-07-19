@@ -1,4 +1,4 @@
-
+ 
   h1,
   h2,
   h3,
@@ -113,5 +113,10 @@
     background-image: linear-gradient(to right, rgb(27, 134, 249) , rgb(1, 60, 99));
   }
 
-  
+  .fill {
+    width: 100%;
+  }
+  .row {
+    width: 100%;
+  }
   

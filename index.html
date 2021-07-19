@@ -19,7 +19,7 @@
     <header class="p-5 text-center text-white bg-header">
       <h1>Weather Dashboard</h1>
     </header>
-    <div class="container">
+    <div class="container fill" style="border:solid black">
         <div class="row">
             <div class="search-area col-4" style="border: solid red;">
                 <input 
@@ -34,7 +34,7 @@
                   </button>
                 <div class="search-history">cities go here</div>
             </div>
-            <div class="row display-area col" style="border: solid blue;">
+            <div hidden class="row display-area col" style="border: solid blue;">
                 <div class="one-day-display col-12" style="border: solid green;">
                   <div class="header-and-image row col-12">
                     <h4 id="cityName">City name goes here </h4>
@@ -47,7 +47,78 @@
                     <li id="uvindex">UV index goes here</li>
                   </ul>
                 </div>
-                <div class="five-day-display col-12" style="border: solid yellow;">
+                <div class="col-12 col-md-9">
+                  <h2>Five Day Forcast</h2>
+          
+                  <section class="row justify-content-around">
+          
+                    <!--div class="col-12 col-sm-6 col-lg-4 mb-3"-->
+                      <div class="card">
+                        <div>
+                          <h4 class="card-header" id="5ddate"></h4>
+                          <img id="5ddate-daily-icon" src="">
+                        </div>
+                        <div class="card-body">
+                          <ul>
+                            <li id="5dtemp">Temp goes here</li>
+                            <li id="5dwind">Wind goes here</li>
+                            <li id="5dhumidity">Humidity goes here</li>
+                          </ul>
+                          
+                        </div>
+                      </div>
+                      <div class="card">
+                        <h3 class="card-header" id="6ddate">
+                        </h3>
+                        <div class="card-body">
+                          <ul>
+                            <li id="6dtemp">Temp goes here</li>
+                            <li id="6dwind">Wind goes here</li>
+                            <li id="6dhumidity">Humidity goes here</li>
+                          </ul>
+                          
+                        </div>
+                      </div>
+                      <div class="card">
+                        <h3 class="card-header" id="6ddate">
+                        </h3>
+                        <div class="card-body">
+                          <ul>
+                            <li id="6dtemp">Temp goes here</li>
+                            <li id="6dwind">Wind goes here</li>
+                            <li id="6dhumidity">Humidity goes here</li>
+                          </ul>
+                          
+                        </div>
+                      </div>
+                      <div class="card">
+                        <h3 class="card-header" id="6ddate">
+                        </h3>
+                        <div class="card-body">
+                          <ul>
+                            <li id="6dtemp">Temp goes here</li>
+                            <li id="6dwind">Wind goes here</li>
+                            <li id="6dhumidity">Humidity goes here</li>
+                          </ul>
+                          
+                        </div>
+                      </div>
+                      <div class="card">
+                        <h3 class="card-header" id="6ddate">
+                        </h3>
+                        <div class="card-body">
+                          <ul>
+                            <li id="6dtemp">Temp goes here</li>
+                            <li id="6dwind">Wind goes here</li>
+                            <li id="6dhumidity">Humidity goes here</li>
+                          </ul>
+                          
+                        </div>
+                      </div>
+                    <!--/div-->
+                  </section>
+                </div>
+                <!--div class="five-day-display col-12" style="border: solid yellow;">
                   <p>five day forcast goes here</p>
                   <ul>
                     <li id="5ddate">5 day date</li>
@@ -55,7 +126,7 @@
                     <li id="5dwind">Wind goes here</li>
                     <li id="5dhumidity">Humidity goes here</li>
                   </ul>
-                </div>
+                </div-->
             </div>
         </div>
     </div>

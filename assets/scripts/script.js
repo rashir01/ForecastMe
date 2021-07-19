@@ -63,19 +63,18 @@ function printWeatherData(fullWeatherData) {
     $("#wind").text(fullWeatherData.current.wind_speed + " MPH");
     $("#humidity").text(fullWeatherData.current.humidity + " %");
     $("#uvindex").text(fullWeatherData.current.uvi);
-    //let temp = "04d"
-    $("#daily-icon").attr("src", `https://openweathermap.org/img/wn/${fullWeatherData.current.weather[0].icon}.png`)
-    return fullWeatherData;
+    $("#daily-icon").attr("src", `https://openweathermap.org/img/wn/${fullWeatherData.current.weather[0].icon}.png`);
+    $(".display-area").removeAttr('hidden');
 }
 
 
 function printFiveDay(fullWeatherData) {
     console.log("inside print 5 day");
     $("#5ddate").text(new Date(fullWeatherData.daily[0].dt * 1000).toLocaleDateString("en-US"));
+    $("#5ddate-daily-icon").attr("src", `https://openweathermap.org/img/wn/${fullWeatherData.daily[0].weather[0].icon}.png`);
     $("#5dtemp").text(Math.ceil(fullWeatherData.daily[0].temp.day) + " F");
     $("#5dwind").text(fullWeatherData.daily[0].wind_speed + " MPH");
     $("#5dhumidity").text(fullWeatherData.daily[0].humidity + " %");
-    return fullWeatherData;
 }
 
 function getFullWeatherData(data) {
@@ -83,8 +82,13 @@ function getFullWeatherData(data) {
 
     fetch(FULL_WEATHER_URL).then(function(response) {
         return response.json();
-    }).then(printWeatherData)//replace these three with process weather data that calls each function individually
-    .then(printFiveDay)
+    }).then(processFullWeatherData);//replace these two with process weather data that calls each function individually
+    
+}
+
+function processFullWeatherData(data) {
+    printWeatherData(data);
+    printFiveDay(data);
 }
 /*function handleAPICalls(city) {
     const COORD_API_URL = "https://api.openweathermap.org/data/2.5/weather?q=" +city +  "&appid=" + API_KEY;
