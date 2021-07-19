@@ -84,7 +84,7 @@ function printOneDayWeatherData(fullWeatherData) {
     } else {
         uvIndexBackground = "red";
     }
-    $("#uvindex").text("UVI: " + fullWeatherData.current.uvi).addClass(uvIndexBackground);
+    $("#uvindex").text("UVI: " + fullWeatherData.current.uvi).removeClass().addClass(uvIndexBackground);
     $("#daily-icon").attr("src", `https://openweathermap.org/img/wn/${fullWeatherData.current.weather[0].icon}.png`);
     $(".display-area").removeAttr('hidden');
 }
@@ -164,7 +164,7 @@ function updateSearchHistory() {
     $('#search-history-ul').empty();
     let searchHistoryArray = Array.from(searchHistorySet);
     for (let i = 0; i < searchHistoryArray.length; i++) {
-        let cityButton = $("<button/>").addClass("btn btn-info col my-1").attr("id", searchHistoryArray[i]).click(historyButtonOnclick).text(searchHistoryArray[i]);
+        let cityButton = $("<button/>").addClass("btn btn-outline-secondary col my-1").attr("id", searchHistoryArray[i]).click(historyButtonOnclick).text(searchHistoryArray[i]);
         let listItem = $("<li/>");
         listItem.append(cityButton);
         $('#search-history-ul').append(listItem);
