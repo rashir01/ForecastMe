@@ -73,7 +73,18 @@ function printOneDayWeatherData(fullWeatherData) {
     $("#temp").text("Temp: " + Math.ceil(fullWeatherData.current.temp) + " F");
     $("#wind").text("Wind " + fullWeatherData.current.wind_speed + " MPH");
     $("#humidity").text("Humidity: " + fullWeatherData.current.humidity + " %");
-    $("#uvindex").text("UVI: " + fullWeatherData.current.uvi);
+    let uvIndexValue = fullWeatherData.current.uvi;
+    let uvIndexBackground = "";
+    if (uvIndexValue < 3) {
+        uvIndexBackground = "green";
+    } else if (uvIndexValue < 6) {
+        uvIndexBackground = "yellow";
+    } else if (uvIndexValue < 8) {
+        uvIndexBackground = "orange";
+    } else {
+        uvIndexBackground = "red";
+    }
+    $("#uvindex").text("UVI: " + fullWeatherData.current.uvi).addClass(uvIndexBackground);
     $("#daily-icon").attr("src", `https://openweathermap.org/img/wn/${fullWeatherData.current.weather[0].icon}.png`);
     $(".display-area").removeAttr('hidden');
 }
