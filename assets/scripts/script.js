@@ -6,7 +6,7 @@ todo:
     1.3 add header --DONE
     1.4 optional add footer 
     1.5 add search field 
-        1.5.1 suggestions
+        1.5.1 optional suggestions
         1.5.2 set search field default text --DONE
     1.6 add search button --DONE
 
@@ -14,17 +14,19 @@ todo:
     2.1 optional show suggested cities
     2.2 capture city input --DONE
 
-3. get weather for city being searched
+3. get weather for city being searched --DONE
+    3.1 get lon/lat --DONE
+    3.2 get full weather data --DONE 
 4. add weather to display 
-    4.1 add display date and current state of the weather icon (sunny, cloudy, etc)
-    4.2 add wind speed display 
-    4.3 add humidity display
-    4.4 add uv index display 
+    4.1 add display date and current state of the weather icon (sunny, cloudy, etc) --DONE
+    4.2 add wind speed display --DONE
+    4.3 add humidity display --DONE
+    4.4 add uv index display --DONE
     4.5 add uv index display colore code
     4.6 add 5 day forcast
     4.6 optional addd toggle for C/F 
 5. add search history 
-    5.1 implement ability to click button and populate the weather data
+    5.1 implement ability to click button and populate the weather data --DONE
     5.2 optional: add remove history city option
     5.3 save searched cities
         5.3.1 handle invalid cities
@@ -59,22 +61,63 @@ function printWeatherData(fullWeatherData) {
     console.log(fullWeatherData);
     console.log("inside print weather data");
     $("#cityName").text(currentCity + " " + new Date(fullWeatherData.current.dt * 1000).toLocaleDateString("en-US"));
-    $("#temp").text(Math.ceil(fullWeatherData.current.temp) + " F");
-    $("#wind").text(fullWeatherData.current.wind_speed + " MPH");
-    $("#humidity").text(fullWeatherData.current.humidity + " %");
-    $("#uvindex").text(fullWeatherData.current.uvi);
+    $("#temp").text("Temp: " + Math.ceil(fullWeatherData.current.temp) + " F");
+    $("#wind").text("Wind " + fullWeatherData.current.wind_speed + " MPH");
+    $("#humidity").text("Humidity: " + fullWeatherData.current.humidity + " %");
+    $("#uvindex").text("UVI: " + fullWeatherData.current.uvi);
     $("#daily-icon").attr("src", `https://openweathermap.org/img/wn/${fullWeatherData.current.weather[0].icon}.png`);
     $(".display-area").removeAttr('hidden');
 }
 
 
 function printFiveDay(fullWeatherData) {
+    //five-day-card-section
+    //create all cards and append to the fivedaycardsection
     console.log("inside print 5 day");
-    $("#5ddate").text(new Date(fullWeatherData.daily[0].dt * 1000).toLocaleDateString("en-US"));
-    $("#5ddate-daily-icon").attr("src", `https://openweathermap.org/img/wn/${fullWeatherData.daily[0].weather[0].icon}.png`);
-    $("#5dtemp").text(Math.ceil(fullWeatherData.daily[0].temp.day) + " F");
-    $("#5dwind").text(fullWeatherData.daily[0].wind_speed + " MPH");
-    $("#5dhumidity").text(fullWeatherData.daily[0].humidity + " %");
+    for (let i = 1; i < 6; i++) {
+        //create card class
+        let cardDiv = $("<div></div>");
+        cardDiv.addClass("card");
+            let headerDiv = $("<div></div>");
+            //create date header
+            let cardTitle = $("<h4></h4>");
+            cardTitle.attr("id", `5day-${i}-header`);
+            cardTitle.addClass("card-header");
+            cardTitle.text(new Date(fullWeatherData.daily[i].dt * 1000).toLocaleDateString("en-US"))
+            //create img icon
+            let cardIcon = $("<img>");
+            cardIcon.attr("id", `5day-${i}-daily-icon`);
+            cardIcon.attr("src", `https://openweathermap.org/img/wn/${fullWeatherData.daily[i].weather[0].icon}.png`)
+            //create div for card body
+            let cardBody = $("<div></div>");
+            cardBody.addClass("card-body");
+            let fiveDayUl = $("<ul></ul");
+            //create temp list item
+            let tempratureLi = $("<li/>").attr("id", `5day-${i}-temp`).text("Temp: " + Math.ceil(fullWeatherData.daily[i].temp.day) + " F");
+            //fiveDayUl.append(tempratureLi);
+            //create wind list item
+            let windLi = $("<li/>").attr("id", `5day-${i}-wind`).text("Wind: " + fullWeatherData.daily[i].wind_speed + " MPH");
+            //fiveDayUl.append(windLi);
+            //create humidity    
+            let humidityLi = $("<li/>").attr("id", `5day-${i}-humidity`).text("Humidity: " + fullWeatherData.daily[i].humidity + " %")
+            
+            fiveDayUl.append(tempratureLi, windLi, humidityLi);
+                
+                
+        //attach divs to card
+        //attach card to section
+        headerDiv.append(cardTitle, cardIcon);
+        cardBody.remove();
+        cardBody.append(fiveDayUl);
+        cardDiv.append(headerDiv);
+        cardDiv.append(cardBody);
+        $('.five-day-card-section').append(cardDiv);
+    }
+    // $("#5day-1-header").text(new Date(fullWeatherData.daily[1].dt * 1000).toLocaleDateString("en-US"));
+    // $("#5day-1-daily-icon").attr("src", `https://openweathermap.org/img/wn/${fullWeatherData.daily[1].weather[0].icon}.png`);
+    // $("#5day-1-temp").text("Temp: " + Math.ceil(fullWeatherData.daily[1].temp.day) + " F");
+    // $("#5day-1-wind").text("Wind: " + fullWeatherData.daily[1].wind_speed + " MPH");
+    // $("#5day-1-humidity").text("Humidity: " + fullWeatherData.daily[1].humidity + " %");
 }
 
 function getFullWeatherData(data) {
