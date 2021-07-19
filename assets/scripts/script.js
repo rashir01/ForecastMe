@@ -41,6 +41,7 @@ todo:
 
 var currentCity = "";
 const API_KEY = "7f2a300c44e460bbccdcac14620347c7";
+var searchHistorySet = new Set();
 
 function handleSearchSubmitButton() {
     let city = $("#city-name-text-area").val().trim();
@@ -140,10 +141,29 @@ function getFullWeatherData(data) {
 
 function processFullWeatherData(data) {
     console.log(`current city ${currentCity}`);
-    
+    searchHistorySet.add(currentCity.toLowerCase());
+    //console.log(Array.from(searchHistory));
+    //$(".search-history").text(searchHistory);
     printOneDayWeatherData(data);
     printFiveDay(data);
+    updateSearchHistory();
 }
+
+function updateSearchHistory() {
+    $('#search-history-ul').empty();
+    let searchHistoryArray = Array.from(searchHistorySet);
+    for (let i = 0; i < searchHistoryArray.length; i++) {
+        let cityButton = $("<button/>").addClass("btn btn-info col my-1").attr("id", searchHistoryArray[i]).click(historyButtonOnclick).text(searchHistoryArray[i]);
+        let listItem = $("<li/>");
+        listItem.append(cityButton);
+        $('#search-history-ul').append(listItem);
+    }
+}
+
+function historyButtonOnclick(event) {
+    processRequest(event.currentTarget.id);
+}
+
 /*function handleAPICalls(city) {
     const COORD_API_URL = "https://api.openweathermap.org/data/2.5/weather?q=" +city +  "&appid=" + API_KEY;
     const FULL_WEATHER_URL = 
