@@ -146,4 +146,9 @@
     color: whitesmoke;
     
   }
+
+  .city-name 
+{
+    text-transform:capitalize;
+}
   

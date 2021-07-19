@@ -110,7 +110,7 @@ function updateSearchHistory(city) {
     $('#search-history-ul').empty();
     let searchHistoryArray = Array.from(searchHistorySet);
     for (let i = 0; i < searchHistoryArray.length; i++) {
-        let cityButton = $("<button/>").addClass("btn btn-outline-secondary col my-1").attr("id", searchHistoryArray[i]).click(historyButtonOnclick).text(searchHistoryArray[i]);
+        let cityButton = $("<button/>").addClass("btn btn-outline-secondary col my-1 city-name").attr("id", searchHistoryArray[i]).click(historyButtonOnclick).text(searchHistoryArray[i]);
         let listItem = $("<li/>");
         listItem.append(cityButton);
         $('#search-history-ul').append(listItem);
