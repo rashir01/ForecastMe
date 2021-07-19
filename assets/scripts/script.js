@@ -107,8 +107,11 @@ function printFiveDay(fullWeatherData) {
 
 function updateSearchHistory(city) {
     $('#search-history-ul').empty();
-    city = city.toLowerCase();
     let searchHistoryArray =  JSON.parse(localStorage.getItem("searchHistoryArray")) || [];
+    if (city == undefined) {
+        city = searchHistoryArray[0];
+    }
+    city = city.toLowerCase();
     if (!searchHistoryArray.includes(city)){
         searchHistoryArray.unshift(city);
     } else {
@@ -130,3 +133,5 @@ function updateSearchHistory(city) {
 function historyButtonOnclick(event) {
     processRequest(event.currentTarget.id);
 }
+
+updateSearchHistory();
