@@ -45,7 +45,7 @@ const API_KEY = "7f2a300c44e460bbccdcac14620347c7";
 function handleSearchSubmitButton() {
     let city = $("#city-name-text-area").val().trim();
     processRequest(city);
-    currentCity = city;
+    
 }
 
 function processRequest(city) {
@@ -54,17 +54,18 @@ function processRequest(city) {
     //get coordinates 
     fetch(COORD_API_URL).then(function(response) {
         if (response.ok) {
+            currentCity = city;
             return response.json();
         } else {
-            alert("Invalid City");
+            //alert("Invalid City");
         }
     }).then (getFullWeatherData)
     .catch(function(error) {
-        console.log('There has been a problem with your fetch operation: ' + error.message);
+        alert("Invalid City");
       });
 }
 
-function printWeatherData(fullWeatherData) {
+function printOneDayWeatherData(fullWeatherData) {
     console.log(fullWeatherData);
     console.log("inside print weather data");
     $("#cityName").text(currentCity + " " + new Date(fullWeatherData.current.dt * 1000).toLocaleDateString("en-US"));
@@ -133,12 +134,14 @@ function getFullWeatherData(data) {
 
     fetch(FULL_WEATHER_URL).then(function(response) {
         return response.json();
-    }).then(processFullWeatherData);//replace these two with process weather data that calls each function individually
+    }).then(processFullWeatherData);
     
 }
 
 function processFullWeatherData(data) {
-    printWeatherData(data);
+    console.log(`current city ${currentCity}`);
+    
+    printOneDayWeatherData(data);
     printFiveDay(data);
 }
 /*function handleAPICalls(city) {
