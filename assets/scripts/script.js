@@ -74,6 +74,7 @@ function printFiveDay(fullWeatherData) {
     //five-day-card-section
     //create all cards and append to the fivedaycardsection
     console.log("inside print 5 day");
+    $('.five-day-card-section').empty();
     for (let i = 1; i < 6; i++) {
         //create card class
         let cardDiv = $("<div></div>");
@@ -107,10 +108,10 @@ function printFiveDay(fullWeatherData) {
         //attach divs to card
         //attach card to section
         headerDiv.append(cardTitle, cardIcon);
-        cardBody.remove();
         cardBody.append(fiveDayUl);
         cardDiv.append(headerDiv);
         cardDiv.append(cardBody);
+        
         $('.five-day-card-section').append(cardDiv);
     }
     // $("#5day-1-header").text(new Date(fullWeatherData.daily[1].dt * 1000).toLocaleDateString("en-US"));
