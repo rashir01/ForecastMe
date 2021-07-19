@@ -151,4 +151,14 @@
 {
     text-transform:capitalize;
 }
+
+body {
+    background-image: url("../images/rainier.png");
+    /* background-color: #cccccc; */
+
+}
+
+div.row {
+  background-color: whitesmoke;
+}
   

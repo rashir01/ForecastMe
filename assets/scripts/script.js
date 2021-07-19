@@ -1,7 +1,6 @@
 var currentCity = "";
 const API_KEY = "7f2a300c44e460bbccdcac14620347c7";
 //TODO read history from local storage
-var searchHistorySet = new Set();
 
 function handleSearchSubmitButton() {
     let city = $("#city-name-text-area").val().trim();
@@ -21,6 +20,7 @@ function processRequest(city) {
     }).then (getFullWeatherData)
     .catch(function(error) {
         alert("Invalid City");
+        console.log(error);
       });
 }
 
@@ -106,16 +106,25 @@ function printFiveDay(fullWeatherData) {
 }
 
 function updateSearchHistory(city) {
-    searchHistorySet.add(city.toLowerCase());
     $('#search-history-ul').empty();
-    let searchHistoryArray = Array.from(searchHistorySet);
+    city = city.toLowerCase();
+    let searchHistoryArray =  JSON.parse(localStorage.getItem("searchHistoryArray")) || [];
+    if (!searchHistoryArray.includes(city)){
+        searchHistoryArray.unshift(city);
+    } else {
+        let cityIndex = searchHistoryArray.indexOf(city);
+        searchHistoryArray.splice(cityIndex, 1);
+        searchHistoryArray.unshift(city);
+    }
     for (let i = 0; i < searchHistoryArray.length; i++) {
         let cityButton = $("<button/>").addClass("btn btn-outline-secondary col my-1 city-name").attr("id", searchHistoryArray[i]).click(historyButtonOnclick).text(searchHistoryArray[i]);
         let listItem = $("<li/>");
         listItem.append(cityButton);
         $('#search-history-ul').append(listItem);
     }
-    //TODO: write history to local storage
+    console.log("search history array before writing")
+    console.log(searchHistoryArray);
+    localStorage.setItem("searchHistoryArray", JSON.stringify(searchHistoryArray));
 }
 
 function historyButtonOnclick(event) {
