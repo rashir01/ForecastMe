@@ -8,7 +8,6 @@ function handleSearchSubmitButton() {
 }
 
 function processRequest(city) {
-    console.log("welcome to process request " + city )
     const COORD_API_URL = "https://api.openweathermap.org/data/2.5/weather?q=" +city +  "&appid=" + API_KEY;
     //get coordinates 
     fetch(COORD_API_URL).then(function(response) {
@@ -20,7 +19,6 @@ function processRequest(city) {
     }).then (getFullWeatherData)
     .catch(function(error) {
         alert("Invalid City");
-        console.log(error);
       });
 }
 
@@ -38,8 +36,6 @@ function processFullWeatherData(data) {
 }
 
 function printOneDayWeatherData(fullWeatherData) {
-    console.log(fullWeatherData);
-    console.log("inside print weather data");
     $("#cityName").text(currentCity + " " + new Date(fullWeatherData.current.dt * 1000).toLocaleDateString("en-US"));
     $("#temp").text("Temp: " + Math.ceil(fullWeatherData.current.temp) + " F");
     $("#wind").text("Wind " + fullWeatherData.current.wind_speed + " MPH");
@@ -64,7 +60,6 @@ function printOneDayWeatherData(fullWeatherData) {
 function printFiveDay(fullWeatherData) {
     //five-day-card-section
     //create all cards and append to the fivedaycardsection
-    console.log("inside print 5 day");
     $('.five-day-card-section').empty();
     for (let i = 1; i < 6; i++) {
         //create card class
@@ -86,10 +81,8 @@ function printFiveDay(fullWeatherData) {
         let fiveDayUl = $("<ul></ul");
         //create temp list item
         let tempratureLi = $("<li/>").attr("id", `5day-${i}-temp`).text("Temp: " + Math.ceil(fullWeatherData.daily[i].temp.day) + " F");
-        //fiveDayUl.append(tempratureLi);
         //create wind list item
         let windLi = $("<li/>").attr("id", `5day-${i}-wind`).text("Wind: " + fullWeatherData.daily[i].wind_speed + " MPH");
-        //fiveDayUl.append(windLi);
         //create humidity    
         let humidityLi = $("<li/>").attr("id", `5day-${i}-humidity`).text("Humidity: " + fullWeatherData.daily[i].humidity + " %")
         
@@ -110,8 +103,11 @@ function updateSearchHistory(city) {
     let searchHistoryArray =  JSON.parse(localStorage.getItem("searchHistoryArray")) || [];
     if (city == undefined) {
         city = searchHistoryArray[0];
+        currentCity = city;
     }
     city = city.toLowerCase();
+    console.log(city);
+
     if (!searchHistoryArray.includes(city)){
         searchHistoryArray.unshift(city);
     } else {
@@ -125,9 +121,9 @@ function updateSearchHistory(city) {
         listItem.append(cityButton);
         $('#search-history-ul').append(listItem);
     }
-    console.log("search history array before writing")
-    console.log(searchHistoryArray);
+    
     localStorage.setItem("searchHistoryArray", JSON.stringify(searchHistoryArray));
+    
 }
 
 function historyButtonOnclick(event) {
@@ -135,3 +131,4 @@ function historyButtonOnclick(event) {
 }
 
 updateSearchHistory();
+processRequest(currentCity);
