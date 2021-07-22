@@ -1,90 +1,40 @@
-# 06 Server-Side APIs: Weather Dashboard
+# Weather Dashboard
 
-## Your Task
+## About The App
 
-Third-party APIs allow developers to access their data and functionality by making requests with specific parameters to a URL. Developers are often tasked with retrieving data from another application's API and using it in the context of their own. Your challenge is to build a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS.
+The Weather Dashboard provides the user the ability to search for a city by name and it will display the current forcast for the city as well as the five day forcast. The app will display the cities searched and the user can click a button to switch to a previously searched city. If the city being searched is not currently in the history, then it will be added to the history and a new button added for it. The buttons are ordered by the last searched city. 
 
-Use the [OpenWeather One Call API](https://openweathermap.org/api/one-call-api) to retrieve weather data for cities. Read through the documentation for setup and usage instructions. You will use `localStorage` to store any persistent data. For more information on how to work with the OpenWeather API, refer to the [Full-Stack Blog on how to use API keys](https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys).
+## How To Used
 
-## User Story
+To start using the app, enter a city in the search field and click the Search City button. You can also click the city buttons for quick access to a previously searched cities. 
 
-```
-AS A traveler
-I WANT to see the weather outlook for multiple cities
-SO THAT I can plan a trip accordingly
-```
+## Technologies Used
 
-## Acceptance Criteria
+The following technologies were used to develop the dashboard
 
-```
-GIVEN a weather dashboard with form inputs
-WHEN I search for a city
-THEN I am presented with current and future conditions for that city and that city is added to the search history
-WHEN I view current weather conditions for that city
-THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-WHEN I view the UV index
-THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-WHEN I view future weather conditions for that city
-THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-WHEN I click on a city in the search history
-THEN I am again presented with current and future conditions for that city
-```
+* CSS 
+    * CSS was used for the styling of the app
+    * Layout was mostly done using Bootstrap
+    * Responsiveness was done using Bootstrap
 
-## Mock-Up
+* HTML
+    * HTML was used for creating the overall webpage
+    * Static elements were declared in the HTML file
+    * elements that were repeating (the history buttons and five day forcast) were not 
+
+* JavaScript
+    * JavaScript was used to handle most of the work required 
+    * API calls using the fetch method
+    * JQuery to add elements and mainpulate the DOM
+    * The [OpenWeather One Call API](https://openweathermap.org/api/one-call-api) was used to retrieve the forcast for the city under search
+## Sample Output
 
 The following image shows the web application's appearance and functionality:
 
-![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Atlanta.](./assets/images/06-server-side-apis-homework-demo.png)
+![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Atlanta.](./assets/images/weatherAppDemo.png)
 
-## Grading Requirements
-
-This homework is graded based on the following criteria: 
-
-### Technical Acceptance Criteria: 40%
-
-* Satisfies all of the above acceptance criteria plus the following:
-
-    * Uses the OpenWeather API to retrieve weather data.
-
-    * Uses `localStorage` to store persistent data.
-
-### Deployment: 32%
-
-* Application deployed at live URL.
-
-* Application loads with no errors.
-
-* Application GitHub URL submitted.
-
-* GitHub repository that contains application code.
-
-### Application Quality: 15%
-
-* Application user experience is intuitive and easy to navigate.
-
-* Application user interface style is clean and polished.
-
-* Application resembles the mock-up functionality provided in the homework instructions.
-
-### Repository Quality: 13%
-
-* Repository has a unique name.
-
-* Repository follows best practices for file structure and naming conventions.
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains quality readme file with description, screenshot, and link to deployed application.
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-* The URL of the functional, deployed application.
-
-* The URL of the GitHub repository. Give the repository a unique name and include a readme describing the project.
+## How To Access
+The Weather Dashboard can be accessed [here](https://weatherapp.com)
 
 - - -
-© 2021 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+© 2021 Ray Ashir
