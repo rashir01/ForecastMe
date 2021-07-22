@@ -12,6 +12,7 @@ const API_KEY = "7f2a300c44e460bbccdcac14620347c7";
 */
 function handleSearchSubmitButton() {
     let city = $("#city-name-text-area").val().trim();
+    $("#city-name-text-area").val("");
     processRequest(city);    
 }
 
