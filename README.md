@@ -34,7 +34,7 @@ The following image shows the web application's appearance and functionality:
 ![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Atlanta.](./assets/images/weatherAppDemo.png)
 
 ## How To Access
-The Weather Dashboard can be accessed [here](https://weatherapp.com)
+The Weather Dashboard can be accessed [here](https://rashir01.github.io/WeatherDashboard/)
 
 - - -
 © 2021 Ray Ashir
